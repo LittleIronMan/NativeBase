@@ -76,21 +76,33 @@ const Modal = (
           finalFocusRef,
         }}
       >
-        <Fade
-          exitDuration={150}
-          entryDuration={200}
-          in={visible}
-          style={StyleSheet.absoluteFill}
-        >
-          {overlayVisible && backdropVisible && (
+        {animationPreset === 'instant' ? (
+          overlayVisible &&
+          backdropVisible && (
             <Backdrop
               onPress={() => {
                 closeOnOverlayClick && handleClose();
               }}
               {..._backdrop}
             />
-          )}
-        </Fade>
+          )
+        ) : (
+          <Fade
+            exitDuration={150}
+            entryDuration={200}
+            in={visible}
+            style={StyleSheet.absoluteFill}
+          >
+            {overlayVisible && backdropVisible && (
+              <Backdrop
+                onPress={() => {
+                  closeOnOverlayClick && handleClose();
+                }}
+                {..._backdrop}
+              />
+            )}
+          </Fade>
+        )}
         {animationPreset === 'slide' ? (
           <Slide in={visible} duration={200}>
             <FocusScope
@@ -101,7 +113,7 @@ const Modal = (
               {child}
             </FocusScope>
           </Slide>
-        ) : (
+        ) : animationPreset === 'fade' ? (
           <Fade
             exitDuration={100}
             entryDuration={200}
@@ -116,6 +128,8 @@ const Modal = (
               {child}
             </FocusScope>
           </Fade>
+        ) : (
+          child
         )}
       </ModalContext.Provider>
     </Overlay>

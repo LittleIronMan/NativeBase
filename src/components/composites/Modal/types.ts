@@ -64,7 +64,7 @@ export interface IModalProps extends IBoxProps<IModalProps> {
    * Sets the animation type
    * @default "fade"
    */
-  animationPreset?: 'fade' | 'slide';
+  animationPreset?: 'fade' | 'slide' | 'instant';
 }
 
 export type IModalComponentType = ((
